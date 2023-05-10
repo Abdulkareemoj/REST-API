@@ -1,7 +1,7 @@
 {
-  "name": "tsnodex",
+  "name": "REST",
   "version": "1.0.0",
-  "description": "TypeScript + Node + Express Starter Template",
+  "description": "REST API built with TypeScript",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -12,20 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/resuminator/tsnodex.git"
+    "url": "git+https://github.com/abdulkareemoj/tsnodex.git"
   },
   "keywords": [
     "TypeScript",
     "NodeJS",
     "ExpressJS"
   ],
-  "author": "Resuminator",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/resuminator/tsnodex/issues"
-  },
-  "homepage": "https://github.com/resuminator/tsnodex#readme",
-  "dependencies": {
+  "author": "abdulkareemoj",
+
+    "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
