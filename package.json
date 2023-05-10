@@ -1,0 +1,61 @@
+{
+  "name": "tsnodex",
+  "version": "1.0.0",
+  "description": "TypeScript + Node + Express Starter Template",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts",
+    "start": "tsc && node dist/index.js",
+    "dev": "nodemon --config nodemon.json ./index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resuminator/tsnodex.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "NodeJS",
+    "ExpressJS"
+  ],
+  "author": "Resuminator",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/resuminator/tsnodex/issues"
+  },
+  "homepage": "https://github.com/resuminator/tsnodex#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^7.1.1",
+    "nanoid": "^4.0.2",
+    "pino": "^8.14.1",
+    "pino-pretty": "^10.0.0",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/lodash": "^4.14.194",
+    "@types/mongoose": "^5.11.97",
+    "@types/nanoid": "^3.0.0",
+    "@types/pino": "^7.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
+    "@typescript-eslint/parser": "^5.59.5",
+    "eslint": "^8.40.0",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
