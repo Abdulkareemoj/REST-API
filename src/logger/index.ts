@@ -1,6 +1,5 @@
 import logger from "pino";
 import dayjs from 'dayjs'
-import pinoPretty from 'pino-pretty';
 
 const log = logger({
   transport: {
