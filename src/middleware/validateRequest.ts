@@ -14,6 +14,8 @@ const validate = (schema: AnySchema) => async(
 
         return next()
     }catch(e){
-        return log.error(e) res.status(400).send(e.error)
+        log.error(e)
+        return  res.status(400).send(e.error)
     }
 }
+export default validateRequest
