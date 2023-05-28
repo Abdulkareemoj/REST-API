@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { IUserDocument } from './user.model'
+import {  UserDocument } from './user.model'
 
 export interface SessionDocument extends mongoose.Document{
-    user: IUserDocument["_id"];
+    user: UserDocument["_id"];
     valid: boolean;
     userAgent: string;
     timestamps: Date
