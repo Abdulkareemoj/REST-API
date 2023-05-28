@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv' 
-// import IUser from '../types/usermodeltypes'
+// import User from '../types/usermodeltypes'
 dotenv.config({ path: '../../config/.env' });
 
-export interface IUserDocument extends mongoose.Document{
+export interface UserDocument extends mongoose.Document{
     email: string;
     name: string;
     password: string;
@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
     // eslint-disable-next-line prefer-const
-    let user = this as IUserDocument
+    let user = this as UserDocument
 
     if (!user.isModified("password")) return next()
 
@@ -42,11 +42,11 @@ UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
 //login schema, compares plaintext password with bcrypt hashed password
 UserSchema.methods.comparePassword = async function(
     candidatePassword: string){
-        const user = this as IUserDocument
+        const user = this as UserDocument
         return bcrypt.compare(candidatePassword, user.password).catch((e) => false)
     }
 
 
-const User = mongoose.model<IUserDocument>("User", UserSchema)
+const User = mongoose.model<UserDocument>("User", UserSchema)
 
 export default User
