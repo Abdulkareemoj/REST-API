@@ -1,8 +1,8 @@
 import DocumentDefinition from "mongoose"
-import User, {IUserDocument} from '../model/user.model'
+import User, {UserDocument} from '../model/user.model'
 import { omit } from "lodash"
 
-export async function createUser(input: DocumentDefinition<IUserDocument>){
+export async function createUser(input: DocumentDefinition<UserDocument>){
     try{
         return await User.create(input)
     }
@@ -16,7 +16,7 @@ export async function validatePassword({
     email,
      password,
 }: {
-   email: IUserDocument["email"]
+   email: UserDocument["email"]
    password: string
 
 
