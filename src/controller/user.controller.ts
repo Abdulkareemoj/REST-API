@@ -12,10 +12,3 @@ return res.status(409).send(e.message)
     }
 
 }
-export async function createUserSessionHandler(res:Request, req:Response){
-    //Validate the email and password
-    //Create a session
-    //Create access token
-    //Create refresh token
-    //Send access and refresh token back
-}
