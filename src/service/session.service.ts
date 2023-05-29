@@ -1,10 +1,12 @@
 import Session, {SessionDocument} from "../model/session.model"
 import UserDocument from '../model/user.model'
+import {sign} from '../utils/jwt.utils'
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../config/.env' });
 
-const accessTokenTtl = process.env.ACCESSTOKEN
+const accessToken = process.env.ACCESSTOKEN as string
 
+console.log(äccessToken)
 export async function createSession(userId: string, userAgent: string){
     const session = await Session.create({user: userId, userAgent})
 
@@ -23,8 +25,8 @@ export function createAccessToken({
     |LeanDocument<Omit<SessionDocument, "password">>
 } ){
 const accessToken = sign(
-    {...user, sesion: session_id},
-    {expiresIn: process.env.accessTokenTtl}
+    {...user, session: session_id},
+    {expiresIn: process.env.accessToken} //15 min
 
 )
 return accessToken
