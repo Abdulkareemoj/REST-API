@@ -2,8 +2,12 @@ import { validatePassword } from "../service/user.service";
 import { Request, Response } from "express";
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../config/.env' });
- import { createSession, createAccessToken } from "../service/"
+ import { createSession, createAccessToken, updateSession } from "../service/session.service"
+import {get} from "lodash"
+
 export async function createUserSessionHandler(res:Request, req:Response){
+
+
   
 const refreshtoken = process.env.REFRESHTOKEN as string
 
@@ -31,4 +35,10 @@ const refreshToken =sign(session,{
 
     //Send access and refresh token back
     return res.send({accessToken, refreshToken})
+}
+
+export async function invalidateUserSessionHandler(res:Request, req:Response){
+    const sessionId = get(req, "user.session")
+    await updateSession({_id: sessionId}, {value: false})
+    return res.sendStatus(200)
 }
