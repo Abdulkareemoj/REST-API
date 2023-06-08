@@ -5,7 +5,7 @@ dotenv.config({ path: '../../config/.env' });
  import { createSession, createAccessToken, updateSession } from "../service/session.service"
 import {get} from "lodash"
 
-export async function createUserSessionHandler(res:Request, req:Response){
+export async function createUserSessionHandler(req: Request, res: Response){
 
 
   
@@ -29,7 +29,7 @@ const accessToken = createAccessToken({
 })
     //Create refresh token
 
-const refreshToken =sign(session,{
+const refreshToken = sign(session,{
     expiresIn: process.env.refreshtoken //1 year
 })
 
@@ -37,8 +37,15 @@ const refreshToken =sign(session,{
     return res.send({accessToken, refreshToken})
 }
 
-export async function invalidateUserSessionHandler(res:Request, req:Response){
+export async function invalidateUserSessionHandler(req: Request, res: Response){
     const sessionId = get(req, "user.session")
     await updateSession({_id: sessionId}, {value: false})
     return res.sendStatus(200)
+}
+
+
+export async function getUserSessionsHandler(req: Request, res: Response){
+const userId = get (req, "user_.id")
+const sessions = await findSessions({user: userId, valid: true})
+return res.send(sessions)
 }
