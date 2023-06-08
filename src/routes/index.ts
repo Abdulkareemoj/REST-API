@@ -18,4 +18,18 @@ export default function (app: Express){
 
     //Logout
     app.delete("/api/session", requiresUser, invalidateUserSessionHandler)
+
+    //Posts
+
+    //Create Post
+//app.post()
+
+    //Get Post
+    //app.get
+
+    //Update a Post
+    //app.put()
+
+    //Delete a Post
+    //app.delete()
 }
