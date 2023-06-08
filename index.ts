@@ -1,11 +1,11 @@
-import cors from "cors";
-import express from "express";
+// import cors from "cors"
+import express from "express"
 import dotenv from 'dotenv'
 import log from "./src/logger"
-import connect from "./config/connect";
+import connect from "./config/connect"
 import routes from "./src/routes"
-dotenv.config({ path: './config/.env' });
-import {deserializeUser} from "./src/middleware"
+dotenv.config({ path: './config/.env' })
+import deserializeUser from "./src/middleware/deserializeUser"
 
 const app = express();
 const port = process.env.PORT
