@@ -29,3 +29,5 @@ if (esxpired && refreshToken){
 }
 return next()
 }
+
+export default deserializeUser
