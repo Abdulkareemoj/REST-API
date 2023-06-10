@@ -22,7 +22,7 @@ export default function (app: Express){
     //Posts
 
     //Create Post
-//app.post()
+app.post("api/posts", [requiresUser, validateRequest(createPostSchema)], createPostHandler)
 
     //Get Post
     //app.get
