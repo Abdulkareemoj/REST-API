@@ -25,7 +25,8 @@ export default function (app: Express){
 app.post("api/posts", [requiresUser, validateRequest(createPostSchema)], createPostHandler)
 
     //Get Post
-    //app.get
+        app.get("api/posts/:postId", getPostHandler)
+
 
     //Update a Post
     app.put("api/posts/:postId", [requiresUser, validateRequest(updatePostSchema)], updatePostHandler)
