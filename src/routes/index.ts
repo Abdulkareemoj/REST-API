@@ -28,7 +28,7 @@ app.post("api/posts", [requiresUser, validateRequest(createPostSchema)], createP
     //app.get
 
     //Update a Post
-    //app.put()
+    app.put("api/posts/:postId", [requiresUser, validateRequest(updatePostSchema)], updatePostHandler)
 
     //Delete a Post
     //app.delete()
