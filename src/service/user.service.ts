@@ -1,4 +1,4 @@
-import { DocumentDefinition, FilterQuery } from "mongoose";
+import { DocumentDefinition, FilterQuery } from "mongoose"
 
 
 import User, {UserDocument} from '../model/user.model'
