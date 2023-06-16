@@ -1,26 +1,26 @@
-import {object, string, ref} from "yup"
+import { z } from "zod"
 
 const payload = {
-    body: object({
-        title: string().required("Title is required"),
-        body: string().required("Body is required").min(120, "Body is too short, 120 char min")
+    body: z.object({
+        title: z.string({required_error:"Title is required"}),
+        body: z.string({required_error:"Body is required"}).min(120, "Body is too short, 120 char min")
     }),
 } 
 const params = {
-    params: object({
-        postId: string().required("postId required")
+    params: z.object({
+        postId: z.string({required_error:"postId required"})
     }),
 }
 
-export const createPostSchema = object({
+export const createPostSchema = z.object({
     ...payload,
 })
 
-export const updatePostSchema = object({
+export const updatePostSchema = z.object({
    ...params,
     ...payload,
 })
 
-export const deletePostSchema = object({
+export const deletePostSchema = z.object({
 ...params,
 })
