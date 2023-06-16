@@ -1,31 +1,31 @@
-import { object, string, ref } from "yup";
+import { z } from "zod";
 
-export const createUserSchema = object({
-  body: object({
-    name: string().required("Name is required"),
-    password: string()
-      .required("Password is required")
-      .min(6, "Password is too short")
-      .matches(/^[a-zA-Z0-9_.-]*$/, "Password can only contain letters"),
-    passwordConfirmation: string().oneOf(
-      [ref("password"), null],
-      "Password must match"
-    ),
-    email: string()
-      .email("Must be a valid email")
-      .required("Email is required"),
-  }),
+export const createUserSchema = z.object({
+  body: z
+    .object({
+      name: z.string({ required_error: "Name is required" }),
+      password: z.string({ required_error: "Password is required" }),
+    })
+    .min(6, "Password is too short")
+    .matches(/^[a-zA-Z0-9_.-]*$/, "Password can only contain letters"),
+  passwordConfirmation: z
+    .string()
+    .oneOf([ref("password"), null], "Password must match"),
+  email: z
+    .string({ required_error: "Email is required" })
+    .email("Must be a valid email"),
 });
 
-export const createUserSessionSchema = object({
-      body: object({
-    name: string().required("Name is required"),
-    password: string()
-      .required("Password is required")
+export const createUserSessionSchema = z.object({
+  body: z.object({
+    name: z.string({ required_error: "Name is required" }),
+    password: z
+      .string({ required_error: "Password is required" })
+
       .min(6, "Password is too short - 6 Characters Minimum")
       .matches(/^[a-zA-Z0-9_.-]*$/, "Password can only contain letters"),
-    email: string()
-      .email("Must be a valid email")
-      .required("Email is required"),
-}),
-})
+    email: z
+      .string({ required_error: "Email is required" })
+      .email("Must be a valid email"),
+  }),
+});
