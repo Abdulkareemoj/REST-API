@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv' 
-// import User from '../types/usermodeltypes'
 dotenv.config({ path: '../../config/.env' });
 
 export interface UserDocument extends mongoose.Document{
@@ -27,10 +26,13 @@ UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
     // eslint-disable-next-line prefer-const
     let user = this as UserDocument
 
-    if (!user.isModified("password")) return next()
+    if (!user.isModified("password")){ 
+    return next()
+}
+
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const salt = await bcrypt.genSalt(process.env.SALT!)
+    const salt = await bcrypt.genSalt(process.env.SALT as number)
 
     const hash = await bcrypt.hashSync(user.password, salt)
     
@@ -41,12 +43,12 @@ UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
 
 //login schema, compares plaintext password with bcrypt hashed password
 UserSchema.methods.comparePassword = async function(
-    candidatePassword: string){
+    candidatePassword: string): Promise<boolean> {
         const user = this as UserDocument
-        return bcrypt.compare(candidatePassword, user.password).catch((e) => false)
+        return bcrypt.compare(candidatePassword, user.password).catch((e: any) => false)
     }
 
-
+  
 const User = mongoose.model<UserDocument>("User", UserSchema)
 
 export default User

@@ -4,7 +4,7 @@ import { DocumentDefinition, FilterQuery } from "mongoose"
 import User, {UserDocument} from '../model/user.model'
 import { omit } from "lodash"
 
-export async function createUser(input: DocumentDefinition<UserDocument>) {
+export async function createUser(input: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt', "comparePassword">>) {
   try {
     return await User.create(input);
   } catch (error) {
