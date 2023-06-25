@@ -1,6 +1,6 @@
 import Session, {SessionDocument} from "../model/session.model"
 import UserDocument from '../model/user.model'
-import {sign} from '../utils/jwt.utils'
+import {signJwt} from '../utils/jwt.utils'
 import {get} from 'lodash'
 import dotenv from 'dotenv'
 import { findUser } from "./user.service"
@@ -12,7 +12,6 @@ const accessToken = process.env.ACCESSTOKEN as string
 // console.l/og(accessToken)
 export async function createSession(userId: string, userAgent: string){
     const session = await Session.create({user: userId, userAgent})
-
     return session.toJSON
 }
 
@@ -26,14 +25,14 @@ export function createAccessToken({
     session:
     |Omit<SessionDocument, "password">
     |LeanDocument<Omit<SessionDocument, "password">>
-} ){
-const accessToken = sign(
-    {...user, session: session_id},
-    {expiresIn: process.env.accessToken} //15 min
+} ) // {
+// const accessToken = signJwt(
+//     {...user, session: session_id},
+//     {expiresIn: process.env.accessToken} //15 min
 
-)
-return accessToken
-}
+// )
+// return accessToken
+// }
 
 export async function reIssueAccessToken({
     refreshToken,
