@@ -3,16 +3,20 @@ import dotenv from "dotenv"
 dotenv.config({ path: '../../config/.env' });
 
 const privateKey = process.env.PRIVATEKEY as string
+const publicKey = process.env.PRIVATEKEY as string
 
-export function sign(object: Object, options?: jwt.SignOptions | undefined){
-    return jwt.sign(object, privateKey, options)
+export function signJwt(object: Object, options?: jwt.SignOptions | undefined){
+    return jwt.sign(object, privateKey, {
+       ...( options && options),
+    algorithm: "RS256",  
+})
 }
 
-export function decode(token: string){
+export function verifyJwt(token: string){
     try{
-        const decoded = jwt.verify(token, privateKey)
+        const decoded = jwt.verify(token, publicKey)
         return{valid: true, expired: false, decoded}
-    }catch (error){
+    }catch (error: any){
         return{
             valid: false, expired: error.message === "jwt expired", decoded: null
         }
