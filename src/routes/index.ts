@@ -4,7 +4,8 @@ import { createUserSessionHandler, invalidateUserSessionHandler, getUserSessions
 import { createPostHandler, getPostHandler, updatePostHandler, deletePostHandler} from '../controller/post.controller'
 import validateRequest from '../middleware/validateRequest'
 import  requiresUser from '../middleware/requiresUser'
-import {createUserSchema, createUserSessionSchema} from '../schema/user.schema'
+import {createUserSchema} from '../schema/user.schema'
+import {createUserSessionSchema} from '../schema/session.schema'
 import {createPostSchema, updatePostSchema, deletePostSchema} from '../schema/post.schema'
 
 export default function (app: Express){
@@ -38,3 +39,4 @@ app.post("api/posts", [requiresUser, validateRequest(createPostSchema)], createP
     app.delete("api/posts/:postId", [requiresUser, validateRequest(deletePostSchema)], deletePostHandler)
 
 }
+
