@@ -24,9 +24,10 @@ if (expired && refreshToken){
     const newAccessToken = await reIssueAccessToken({refreshToken})
     if (newAccessToken){
         res.setHeader("x-access-token", newAccessToken)
-        const {decoded } = decode(newAccessToken)
-        req.user = decoded
-    }
+     }  
+      const result = verifyJwt(newAccessToken)
+    
+      res.locals.user = result.decoded
     return next()
 }
 return next()
