@@ -32,7 +32,7 @@ UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
 
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const salt = await bcrypt.genSalt(process.env.SALT as number)
+    const salt = await bcrypt.genSalt(config.get<number>(saltWorkFactor))
 
     const hash = await bcrypt.hashSync(user.password, salt)
     
