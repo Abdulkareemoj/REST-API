@@ -1,9 +1,7 @@
 import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
-dotenv.config({ path: '../../config/.env' });
-
-const privateKey = process.env.PRIVATEKEY as string
-const publicKey = process.env.PRIVATEKEY as string
+import config from "config"
+const privateKey = config.get<string>("privateKey")
+const publicKey = config.get<string>("publicKey")
 
 export function signJwt(object: Object, options?: jwt.SignOptions | undefined){
     return jwt.sign(object, privateKey, {
