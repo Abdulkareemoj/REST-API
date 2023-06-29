@@ -1,13 +1,14 @@
 import Session, {SessionDocument} from "../model/session.model"
-import UserDocument from '../model/user.model'
-import {signJwt} from '../utils/jwt.utils'
+import UserDocument from '../model/user.m odel'
+import {signJwt, verifyJwt} from '../utils/jwt.utils'
 import {get} from 'lodash'
-import dotenv from 'dotenv'
+
 import { findUser } from "./user.service"
 import { FilterQuery, UpdateQuery } from "mongoose"
-dotenv.config({ path: '../../config/.env' });
+import config from "config"
 
-const accessToken = process.env.ACCESSTOKEN as string
+// const accessToken = config.get<string>("accessTokenttl")
+// const refreshToken = config.get<string>("refreshTokenttl")
 
 // console.l/og(accessToken)
 export async function createSession(userId: string, userAgent: string){
@@ -20,7 +21,7 @@ export function createAccessToken({
     session,
 }:{
     user:
-    |Omit<UserDocument, "password">
+    |Omit<typeof UserDocument, "password">
     |LeanDocument<Omit<UserDocument, "password">>
     session:
     |Omit<SessionDocument, "password">
@@ -35,27 +36,34 @@ export function createAccessToken({
 // }
 
 export async function reIssueAccessToken({
-    refreshToken,
+    refreshToken
 }: {
     refreshToken: string
 })
 {
 
-const {decoded} = decode(refreshToken)
-if(!decoded || !get(decoded, "_id")) return false
+const {decoded} = verifyJwt(refreshToken)
+if(!decoded || !get(decoded, "session")) 
+return false
 
 //get session
-const session = await Session.findById(get(decoded, "_id"))
+const session = await Session.findById(get(decoded, "session"))
 
 
 //check if session is valid
-if(!session || !session?.valid) return false
+if(!session || !session?.valid)
+
+
+return false
 
 const user = await findUser({ _id: session.user })
 
-if(!user) return false
+if(!user)
+ return false
 
-const accessToken = createAccessToken({ user, session })
+const accessToken = signJwt({ ...user, session: session_.id }
+    //  {expiresIn: }
+    )
 
 
 return accessToken
