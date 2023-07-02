@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
 import {get} from 'lodash'
-import {createPost, findPost, findAndUpdate, deletePost} from '../service/post.service'
+import {createPost, findPost, findAndUpdatePost, deletePost} from '../service/post.service'
 
 
 export async function createPostHandler(req: Request, res: Response){
@@ -25,7 +25,7 @@ if(!post){
 if (String(post.user) !== userId){
     return res.sendStatus(401)
 }
-const updatedPost = await findAndUpdate({postId}, update, {new: true})
+const updatedPost = await findAndUpdatePost({postId}, update, {new: true})
 return res.send(updatedPost)
 }
 
