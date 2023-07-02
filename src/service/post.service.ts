@@ -14,7 +14,7 @@ export function findPost(
     return Post.findOne(query, {}, options)
 }
 
-export function findAndUpdate(
+export function findAndUpdatePost(
      query: FilterQuery<PostDocument>,
 update: UpdateQuery<PostDocument>,
      options: QueryOptions
