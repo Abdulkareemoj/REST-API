@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { TypeOf, z } from "zod"
 
 const payload = {
     body: z.object({
@@ -24,3 +24,12 @@ export const updatePostSchema = z.object({
 export const deletePostSchema = z.object({
 ...params,
 })
+
+
+export type createPostInput = TypeOf<typeof createPostSchema>
+
+export type updatePostInput = TypeOf<typeof updatePostSchema>
+
+export type readPostInput = TypeOf<typeof getPostSchema>
+
+export type deletePostInput = TypeOf<typeof deletePostSchema>
