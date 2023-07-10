@@ -1,16 +1,20 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
-import dotenv from 'dotenv' 
-dotenv.config({ path: '../../config/.env' });
+import config from "config"
 
-export interface UserDocument extends mongoose.Document{
+
+export interface UserInput{
     email: string;
     name: string;
     password: string;
-    createdAt: Date;
+} 
+
+export interface UserDocument extends UserInput, mongoose.Document{
+    createdAt: Date; 
     updatedAt: Date;
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
+
 const UserSchema = new mongoose.Schema(
     {
         email: { type: String, required: true, unique: true},
@@ -23,7 +27,6 @@ const UserSchema = new mongoose.Schema(
 )
 
 UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
-    // eslint-disable-next-line prefer-const
     let user = this as UserDocument
 
     if (!user.isModified("password")){ 
@@ -31,8 +34,7 @@ UserSchema.pre("save", async function(next: mongoose.HookNextFunction){
 }
 
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const salt = await bcrypt.genSalt(config.get<number>(saltWorkFactor))
+    const salt = await bcrypt.genSalt(config.get<number>("saltWorkFactor"))
 
     const hash = await bcrypt.hashSync(user.password, salt)
     
