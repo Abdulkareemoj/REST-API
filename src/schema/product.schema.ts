@@ -36,6 +36,6 @@ export type createProductInput = TypeOf<typeof createProductSchema>
 
 export type updateProductInput = TypeOf<typeof updateProductSchema>
 
-export type readProductInput = TypeOf<typeof getProductSchema>
+export type readProductInput = TypeOf<typeof readProductSchema>
 
-export type deleteProductInput = TypeOf<typeof deleteProductSchema>
+export type deleteProductInput = TypeOf<typeof deleteProductSchema>   
