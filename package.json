@@ -10,15 +10,6 @@
     "start": "tsc && node dist/index.js",
     "dev": "nodemon --config nodemon.json ./index.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abdulkareemoj/tsnodex.git"
-  },
-  "keywords": [
-    "TypeScript",
-    "NodeJS",
-    "ExpressJS"
-  ],
   "author": "abdulkareemoj",
   "dependencies": {
     "bcrypt": "^5.1.0",
