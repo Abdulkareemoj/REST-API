@@ -1,5 +1,5 @@
 import Session, {SessionDocument} from "../model/session.model"
-import UserDocument from '../model/user.m odel'
+import UserDocument from '../model/user.model'
 import {signJwt, verifyJwt} from '../utils/jwt.utils'
 import {get} from 'lodash'
 
