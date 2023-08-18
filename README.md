@@ -1,4 +1,4 @@
 # REST-nodets
 
 
-## A simple RESTful api written in Node.js Express and Typescript
+## A RESTful api written in Node.js with Typescript Express and and mongoose
