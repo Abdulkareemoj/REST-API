@@ -1,8 +1,8 @@
-import DocumentDefinition, { FilterQuery, UpdateQuery, QueryOptions } from "mongoose"
+import { FilterQuery, UpdateQuery, QueryOptions } from "mongoose"
 import Post, {PostDocument} from "../model/post.model"
 
 
-export function createPost(input: DocumentDefinition<PostDocument>){
+export function createPost(input: PostDocument){
     return Post.create(input)
 }
 
