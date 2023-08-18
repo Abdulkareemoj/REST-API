@@ -9,27 +9,24 @@ const deserializeUser = async(
     next:NextFunction 
 )=>{
     const accessToken = get(req, "headers.authorization", "").replace(/^Bearer\s/, "") 
-
-    const refreshToken = get(req, "headers.x-refresh")
-    if (!accessToken){
+const refreshToken = Array.isArray(get(req, "headers.x-refresh", [])) ? get(req, "headers.x-refresh", [])[0] : get(req, "headers.x-refresh")
+   if (!accessToken){
      return next()
 }
     const{decoded, expired} = verifyJwt(accessToken)
 
     if (decoded){
-        req.locals.user = decoded
+        res.locals.user = decoded
         return next()
     }
 if (expired && refreshToken){
-    const newAccessToken = await reIssueAccessToken({refreshToken})
-    if (newAccessToken){
-        res.setHeader("x-access-token", newAccessToken)
-     }  
-      const result = verifyJwt(newAccessToken)
-    
-      res.locals.user = result.decoded
+ const newAccessToken = await reIssueAccessToken({refreshToken: refreshToken[0]})
+   if (newAccessToken){
+    res.setHeader("x-access-token", newAccessToken)
+    const result = verifyJwt(newAccessToken)
+    res.locals.user = result.decoded
     return next()
-}
+}}
 return next()
 }
 
