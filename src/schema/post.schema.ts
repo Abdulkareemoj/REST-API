@@ -20,6 +20,11 @@ export const updatePostSchema = z.object({
    ...params,
     ...payload,
 })
+export const getPostSchema = z.object({
+   ...params,
+    ...payload,
+})
+
 
 export const deletePostSchema = z.object({
 ...params,
