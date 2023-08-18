@@ -5,7 +5,7 @@ const payload = {
         title: string({required_error:"Title is required"}),
         description: string({required_error:"Description is required"}).min(120, "Body is too short, 120 char min"),
         price: string({required_error:"Price is required"}),
-        image: number({required_error:"Image is required"}),
+        image: string({required_error:"Image is required"}),
     }),
 } 
 const params = {

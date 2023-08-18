@@ -11,13 +11,10 @@ export interface ProductInput{
   description: string;
   price: string;
   image: string;
-}
-
-export interface ProductDocument extends ProductInput, mongoose.Document {
-
-
   timestamps: Date;
 }
+
+
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -40,6 +37,6 @@ const ProductSchema = new mongoose.Schema(
 
 ); 
 
-const Product = mongoose.model<ProductDocument>("Product", ProductSchema);
+const Product = mongoose.model("Product", ProductSchema);
 
 export default Product;
