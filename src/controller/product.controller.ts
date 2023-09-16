@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+// @deno-types="npm:@types/express@4.17.15"
+import { Request, Response } from "npm:express@4.18.2";
 import {
   createProduct,
-  findProduct,
-  findAndUpdateProduct,
   deleteProduct,
+  findAndUpdateProduct,
+  findProduct,
 } from "../service/product.service";
 import {
   createProductInput,
@@ -14,7 +15,7 @@ import {
 
 export async function createProductHandler(
   req: Request<{}, {}, createProductInput["body"]>,
-  res: Response
+  res: Response,
 ) {
   const userId = res.locals.user._id;
   const body = req.body;
@@ -34,7 +35,7 @@ export async function createProductHandler(
 }
 export async function updateProductHandler(
   req: Request<updateProductInput["params"]>,
-  res: Response
+  res: Response,
 ) {
   const userId = res.locals.user._id;
   const productId = req.params.productId;
@@ -56,15 +57,13 @@ export async function updateProductHandler(
   return res.send(updatedProduct);
 }
 
-
 export async function getProductHandler(
   req: Request<readProductInput["params"]>,
-  res: Response
+  res: Response,
 ) {
-
-  const userId =res.locals.user._id
+  const userId = res.locals.user._id;
   const productId = req.params.productId;
-  
+
   const product = await findProduct({ productId });
 
   if (!product) {
@@ -73,10 +72,9 @@ export async function getProductHandler(
   return res.send(product);
 }
 
-
 export async function deleteProductHandler(
   req: Request<deleteProductInput["params"]>,
-  res: Response
+  res: Response,
 ) {
   const userId = res.locals.user._id;
   const productId = req.params.productId;

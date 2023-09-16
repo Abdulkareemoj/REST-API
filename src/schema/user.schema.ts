@@ -1,4 +1,4 @@
-import { TypeOf, object, string } from "zod";
+import { object, string, TypeOf } from "npm:zod@^3.21.4";
 
 export const createUserSchema = object({
   body: object({
@@ -13,11 +13,14 @@ export const createUserSchema = object({
     }),
     // .oneOf([ref("password"), null], "Password must match"),
     email: string({ required_error: "Email is required" })
-    .email("Must be a valid email"),
+      .email("Must be a valid email"),
   }).refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords do not match",
     path: ["passwordConfirmation"],
   }),
 });
 
-export type CreateUserInput = Omit<TypeOf<typeof createUserSchema>, "body.passwordConfirmation">
+export type CreateUserInput = Omit<
+  TypeOf<typeof createUserSchema>,
+  "body.passwordConfirmation"
+>;

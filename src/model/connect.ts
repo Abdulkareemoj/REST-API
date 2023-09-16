@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv"
-import log from "../src/logger"
+import mongoose from "npm:mongoose@^6.7";
+// import dotenv from "dotenv";
+import log from "../logger";
 // dotenv.config();
 
 // function connect(){
@@ -32,5 +32,4 @@ const connect = async () => {
   }
 };
 
-
-export default connect
+export default connect;

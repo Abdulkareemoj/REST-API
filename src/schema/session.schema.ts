@@ -1,4 +1,4 @@
-import { object, string } from "zod";
+import { object, string } from "npm:zod@^3.21.4";
 
 export const createUserSessionSchema = object({
   body: object({
@@ -7,7 +7,7 @@ export const createUserSessionSchema = object({
       .min(6, "Password is too short - 6 Characters Minimum"),
     //   .matches(/^[a-zA-Z0-9_.-]*$/, "Password can only contain letters"),
     email: string({ required_error: "Email is required" }).email(
-      "Must be a valid email"
+      "Must be a valid email",
     ),
   }),
 });

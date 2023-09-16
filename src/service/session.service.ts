@@ -1,11 +1,11 @@
 import Session from "../model/session.model";
 import UserDocument from "../model/user.model";
 import { signJwt, verifyJwt } from "../utils/jwt.utils";
-import { get } from "lodash";
-import { ObjectId } from "mongoose";
+import { get } from "npm:lodash@^4.17.21";
+import { ObjectId } from "npm:mongoose@^6.7";
 import { findUser } from "./user.service";
-import { FilterQuery, UpdateQuery } from "mongoose";
-import config from "config";
+import { FilterQuery, UpdateQuery } from "npm:mongoose@^6.7";
+// import config from "config";
 
 type SessionWithId = Omit<typeof Session, "password"> & { _id: ObjectId };
 // const accessToken = config.get<string>("accessTokenttl")
@@ -28,7 +28,7 @@ export function createAccessToken({
 }): string {
   const accessToken = signJwt(
     { ...user, session: session._id },
-    { expiresIn: process.env.ACCESS_TOKEN } //15 min
+    { expiresIn: process.env.ACCESS_TOKEN }, //15 min
   );
   return accessToken;
 }
@@ -58,7 +58,7 @@ export async function reIssueAccessToken({
 
 export async function updateSession(
   query: FilterQuery<typeof Session>,
-  update: UpdateQuery<typeof Session>
+  update: UpdateQuery<typeof Session>,
 ) {
   return Session.updateOne(query, update);
 }

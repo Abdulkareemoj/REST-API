@@ -1,5 +1,6 @@
-import { AnyZodObject } from "zod";
-import { Request, Response, NextFunction } from "express";
+import { AnyZodObject } from "npm:zod@^3.21.4";
+// @deno-types="npm:@types/express@4.17.15"
+import { NextFunction, Request, Response } from "npm:express@4.18.2";
 import log from "../logger";
 
 const validateRequest =
@@ -11,7 +12,7 @@ const validateRequest =
         query: req.query,
         params: req.params,
       });
-      next()
+      next();
 
       return next();
     } catch (e: any) {

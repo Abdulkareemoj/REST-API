@@ -1,8 +1,14 @@
 import { validatePassword } from "../service/user.service";
-import { Request, Response } from "express";
-import config from "config"
-import { createSession, findSessions, updateSession} from "../service/session.service";
-import { get } from "lodash";
+// @deno-types="npm:@types/express@4.17.15"
+import { Request, Response } from "npm:express@4.18.2";
+// import config from "config"
+import {
+  createSession,
+  findSessions,
+  updateSession,
+} from "../service/session.service";
+// @deno-types="npm:@types/lodash@4.14.195"
+import { get } from "npm:lodash@^4.17.21";
 import { signJwt } from "../utils/jwt.utils";
 import { SessionDocument } from "../model/session.model";
 
@@ -23,7 +29,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
           session: (session as any)._id,
         },
       },
-      { expiresIn: config.get("acccessTokenttl") }
+      { expiresIn: process.env.ACCESSTOKENTTL },
     );
 
     const refreshToken = signJwt(
@@ -33,17 +39,20 @@ export async function createUserSessionHandler(req: Request, res: Response) {
           session: (session as any)._id,
         },
       },
-      { expiresIn: config.get("refreshTokenttl") }
+      { expiresIn: process.env.REFRESHTOKENTTL },
     );
 
     return res.send({ accessToken, refreshToken });
   } catch (error) {
-    console.error('Error creating user session:', error);
+    console.error("Error creating user session:", error);
     return res.status(500).send("Internal server error");
   }
 }
 
-export async function invalidateUserSessionHandler(req: Request, res: Response) {
+export async function invalidateUserSessionHandler(
+  req: Request,
+  res: Response,
+) {
   const sessionId = get(req, "user.session");
   await updateSession({ _id: sessionId }, { valid: false });
   return res.sendStatus(200);
