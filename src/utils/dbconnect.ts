@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
-import log from "../logger";
 
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI!);
-    log.info("Database Connected");
+    await mongoose.connect(Deno.env.get("MONGO_URI")!);
+    console.log("Database Connected");
   } catch (err) {
-    log.info(err);
-    process.exit(1);
+    console.log(err);
+    Deno.exit(1);
   }
-  if (!process.env.MONGO_URI) {
-    log.error("MONGO_URI environment variable is not set");
-    process.exit(1);
+  if (!Deno.env.get("MONGO_URI")) {
+    console.log("MONGO_URI environment variable is not set");
+    Deno.exit(1);
   }
 };
 

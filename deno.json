@@ -1,0 +1,21 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "es-toolkit": "jsr:@es-toolkit/es-toolkit@^1.26.1/compat",
+    "@std/assert": "jsr:@std/assert@1",
+    "bcryptjs": "npm:bcryptjs@2.4.3",
+    "cors": "npm:cors@^2.8.5",
+    "dayjs": "npm:dayjs@1.11.13",
+    "express": "npm:express@^4.21.2",
+
+    "google-auth-library": "npm:google-auth-library@9.14.2",
+    "jsonwebtoken": "npm:jsonwebtoken@9.0.2",
+    "mongoose": "npm:mongoose@8.7.3",
+    "nanoid": "npm:nanoid@5.0.8",
+    "pino": "npm:pino@9.5.0",
+    "pino-pretty": "npm:pino-pretty@11.3.0",
+    "zod": "npm:zod@3.23.8"
+  }
+}

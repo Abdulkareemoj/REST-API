@@ -1,6 +1,6 @@
 import { FilterQuery } from "mongoose";
-import User, { UserDocument, UserInput } from "../models/user.model";
-import { omit } from "lodash-es";
+import User, { UserDocument, UserInput } from "../models/user.model.ts";
+import { omit } from "es-toolkit";
 
 // Assuming UserInput now includes roles: string[];
 export async function createUser(input: UserInput & { roles: string[] }) {

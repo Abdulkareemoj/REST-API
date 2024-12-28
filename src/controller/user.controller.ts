@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { omit } from "lodash-es";
-import { createUser } from "../service/user.service";
-import log from "../logger";
-import { CreateUserInput } from "../schema/user.schema";
+import { omit } from "es-toolkit";
+import { createUser } from "../service/user.service.ts";
+
+import { CreateUserInput } from "../schema/user.schema.ts";
 
 // Example RBAC middleware
 // function authorize(roles: string[]) {
@@ -32,10 +32,12 @@ export async function createUserHandler(
     // Omit password from the response
     return res.send(omit(user.toJSON(), "password"));
   } catch (e: unknown) {
-    log.error(e);
+    console.log(e);
     if (e instanceof Error) {
       return res.status(409).send(e.message);
     }
     return res.status(500).send("Internal Server Error");
   }
 }
+
+//add a  get currentuser function

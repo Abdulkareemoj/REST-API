@@ -6,7 +6,7 @@ export interface UserInput {
   email: string;
   name: string;
   password: string;
-    roles: string[];
+  roles: string[];
 }
 
 export interface UserDocument extends UserInput, mongoose.Document {
@@ -38,7 +38,7 @@ UserSchema.pre("save", async function (next) {
   }
 
   const salt = bcrypt.genSalt(
-    process.env.SALT_WORK_FACTOR as unknown as number
+    Deno.env.get("SALT_WORK_FACTOR") as unknown as number
   );
 
   const hash = await bcrypt.hashSync(user.password, await salt);

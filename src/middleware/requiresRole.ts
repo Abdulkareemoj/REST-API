@@ -1,7 +1,7 @@
 // requiresUser.ts
-import { get } from "lodash-es";
+import { get } from "es-toolkit";
 import { Request, Response, NextFunction } from "express";
-import { permissions, Role } from "./roles"; // Adjust the path as necessary
+import { permissions, Role } from "./roles.ts"; // Adjust the path as necessary
 
 const requiresRole =
   (requiredPermissions: Role[]) =>

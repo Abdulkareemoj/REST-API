@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-import { get } from "lodash-es";
+import { get } from "es-toolkit";
 import {
   createPost,
   findPost,
   findAndUpdatePost,
   deletePost,
-} from "../service/post.service";
+} from "../service/post.service.ts";
 import {
   createPostInput,
   updatePostInput,
   readPostInput,
   deletePostInput,
-} from "../schema/post.schema";
+} from "../schema/post.schema.ts";
 
 export async function createPostHandler(
   req: Request<{}, {}, createPostInput["body"]>,

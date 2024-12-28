@@ -1,6 +1,5 @@
-# REST-nodets
+# REST-Deno
 
+## A simple Restful Api backend written in Deno and Express
 
-## A RESTful api written in Node.js with Typescript Express and and mongoose deployed on cyclic
-
-## Also wrote a version in Deno here https://github.com/Abdulkareemoj/REST-Node/tree/deno
+## Original Project here https://github.com/Abdulkareemoj/REST-Node

@@ -1,5 +1,5 @@
 import { FilterQuery, UpdateQuery, QueryOptions } from "mongoose";
-import Post, { PostDocument } from "../models/post.model";
+import Post, { PostDocument } from "../models/post.model.ts";
 
 export function createPost(input: PostDocument) {
   return Post.create(input);

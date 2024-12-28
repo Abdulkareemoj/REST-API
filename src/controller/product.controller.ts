@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-import { get } from "lodash-es";
+import { get } from "es-toolkit";
 import {
   createProduct,
   findProduct,
   findAndUpdateProduct,
   deleteProduct,
-} from "../service/product.service";
+} from "../service/product.service.ts";
 import {
   createProductInput,
   deleteProductInput,
   readProductInput,
   updateProductInput,
-} from "../schema/product.schema";
+} from "../schema/product.schema.ts";
 
 export async function createProductHandler(
   req: Request<{}, {}, createProductInput["body"]>,

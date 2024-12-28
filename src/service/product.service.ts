@@ -1,5 +1,5 @@
 import { FilterQuery, UpdateQuery, QueryOptions } from "mongoose";
-import Product, { ProductInput } from "../models/product.model";
+import Product, { ProductInput } from "../models/product.model.ts";
 
 export async function createProduct(
   input: Omit<ProductInput, "createdAt" | "updatedAt">

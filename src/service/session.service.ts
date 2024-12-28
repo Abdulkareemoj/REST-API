@@ -1,9 +1,9 @@
-import Session from "../models/session.model";
-import UserDocument from "../models/user.model";
-import { signJwt, verifyJwt } from "../utils/jwt.utils";
-import { get } from "lodash-es";
+import Session from "../models/session.model.ts";
+import UserDocument from "../models/user.model.ts";
+import { signJwt, verifyJwt } from "../utils/jwt.utils.ts";
+import { get } from "es-toolkit";
 import { ObjectId } from "mongoose";
-import { findUser } from "./user.service";
+import { findUser } from "./user.service.ts";
 import { FilterQuery, UpdateQuery } from "mongoose";
 
 type SessionWithId = Omit<typeof Session, "password"> & { _id: ObjectId };
@@ -25,7 +25,7 @@ export function createAccessToken({
 }): string {
   const accessToken = signJwt(
     { ...user, session: session._id },
-    { expiresIn: process.env.ACCESS_TOKEN } //15 min
+    { expiresIn: Deno.env.get("ACCESS_TOKEN") } //15 min
   );
   return accessToken;
 }

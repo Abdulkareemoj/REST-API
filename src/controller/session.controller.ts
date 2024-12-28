@@ -1,13 +1,13 @@
-import { validatePassword } from "../service/user.service";
+import { validatePassword } from "../service/user.service.ts";
 import { Request, Response } from "express";
 import {
   createSession,
   findSessions,
   updateSession,
-} from "../service/session.service";
-import { get } from "lodash-es";
-import { signJwt } from "../utils/jwt.utils";
-import { SessionDocument } from "../models/session.model";
+} from "../service/session.service.ts";
+import { get } from "es-toolkit";
+import { signJwt } from "../utils/jwt.utils.ts";
+import { SessionDocument } from "../models/session.model.ts";
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   try {
@@ -26,7 +26,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
           session: (session as any)._id,
         },
       },
-      { expiresIn: process.env.ACCESS_TOKEN_TTL }
+      { expiresIn: Deno.env.get("ACCESS_TOKEN_TTL") }
     );
 
     const refreshToken = signJwt(
@@ -36,7 +36,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
           session: (session as any)._id,
         },
       },
-      { expiresIn: process.env.REFRESH_TOKEN_TTL }
+      { expiresIn: Deno.env.get("REFRESH_TOKEN_TTL") }
     );
 
     return res.send({ accessToken, refreshToken });
