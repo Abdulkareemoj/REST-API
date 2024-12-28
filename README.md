@@ -16,7 +16,15 @@ Original Project uses the server written in Node.js [here](https://github.com/Ab
 - MongoDB integration with Mongoose
 
 ## Project Structure
-
+```sh
+node-react-ts-docker/
+├── src/ # Source code
+│ └── ... # Other configuration files
+├── .gitignore
+├── deno.json
+├── deno.lock
+└── README.md
+```
 ## Getting Started
 
 ### Prerequisites
