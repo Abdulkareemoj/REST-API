@@ -1,13 +1,13 @@
-import { get } from "es-toolkit";
+import { get } from "lodash-es";
 import { Request, Response, NextFunction } from "express";
-import { verifyJwt } from "../utils/jwt.utils.ts";
-import { reIssueAccessToken } from "../service/session.service.ts";
+import { verifyJwt } from "../utils/jwt.utils";
+import { reIssueAccessToken } from "../service/session.service";
 
-const deserializeUser = async (
+export default async function deserializeUser(
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+) {
   const accessToken = get(req, "headers.authorization", "").replace(
     /^Bearer\s/,
     ""
@@ -36,6 +36,4 @@ const deserializeUser = async (
     }
   }
   return next();
-};
-
-export default deserializeUser;
+}

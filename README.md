@@ -3,7 +3,7 @@
 ## Overview
 
 REST-Deno is a simple Restful API backend written with Deno and Express. This project demonstrates how to build a RESTful API using Deno, a modern runtime for JavaScript and TypeScript, and Express, a minimal and flexible Node.js web application framework.
-Original Project uses the server written in Node.js [here](https://github.com/Abdulkareemoj/node-react-ts-docker)
+Project uses the server originally written with Node.js [here](https://github.com/Abdulkareemoj/node-react-ts-docker)
 
 ## Features
 
@@ -12,7 +12,7 @@ Original Project uses the server written in Node.js [here](https://github.com/Ab
 - Role-based access control (RBAC)
 - CRUD operations for products and posts
 - Session management
-- Input validation with Zod
+- Schema validation with Zod
 - MongoDB integration with Mongoose
 
 ## Project Structure

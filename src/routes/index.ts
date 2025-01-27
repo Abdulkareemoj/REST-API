@@ -1,57 +1,75 @@
 import { Express, Request, Response } from "express";
+import {
+  createShortUrl,
+  getAnalytics,
+  getShortUrl,
+  handleRedirect,
+} from "../controller/shortUrl.controller";
+import validateResource from "../middleware/validateRequest";
+import { createShortURLSchema } from "../schema/createShortUrl.schema";
 // import { authenticate, checkRole } from "../middleware/auth";
-import { signIn, signOut } from "../controller/auth.controller.ts";
+import { signIn, signOut, signUp } from "../controller/auth.controller";
 import {
   createProductHandler,
   updateProductHandler,
   getProductHandler,
   deleteProductHandler,
-} from "../controller/product.controller.ts";
+} from "../controller/product.controller";
 import {
   createUserSessionHandler,
   getUserSessionsHandler,
   deleteSessionHandler,
-} from "../controller/session.controller.ts";
-import { createUserHandler } from "../controller/user.controller.ts";
+} from "../controller/session.controller";
+import { createUserHandler } from "../controller/user.controller";
 import {
   createProductSchema,
   updateProductSchema,
   deleteProductSchema,
-} from "../schema/product.schema.ts";
+} from "../schema/product.schema";
 import {
   createUserSchema,
   createUserSessionSchema,
-} from "../schema/user.schema.ts";
+} from "../schema/user.schema";
 import {
   createPostSchema,
   deletePostSchema,
   getPostSchema,
   updatePostSchema,
-} from "../schema/post.schema.ts";
+} from "../schema/post.schema";
 import {
   createPostHandler,
   getPostHandler,
   updatePostHandler,
-} from "../controller/post.controller.ts";
-import requiresRole from "../middleware/requiresRole.ts";
-import { permissions } from "../middleware/roles.ts";
-import validateRequest from "../middleware/validateRequest.ts";
-//TODO add other roles with requiresRole
-function routes(app: Express) {
-  app.get("/api/", (req: Request, res: Response) => {
+} from "../controller/post.controller";
+import requiresRole from "../middleware/requiresRole";
+import { permissions } from "../middleware/roles";
+import { verifyToken } from "../middleware/verifyToken";
+
+export default function routes(app: Express) {
+  app.get("/api/healthcheck", (req: Request, res: Response) => {
     return res.send("bruhh");
   });
 
+  app.post("/api/url", validateResource(createShortURLSchema), createShortUrl);
+
+  app.get("/:shortId", handleRedirect);
+
+  app.get("/api/url/:shortId", getShortUrl);
+
+  app.get("/api/analytics", getAnalytics);
+
   app.post("/api/signin", signIn);
 
-  app.post("/api/signout", signOut);
+  app.post("/api/signup", signUp);
 
-  app.post("/api/users", validateRequest(createUserSchema), createUserHandler);
+  app.post("/signout", verifyToken, signOut);
+
+  app.post("/api/users", validateResource(createUserSchema), createUserHandler);
 
   //Session endpoints
   app.post(
     "/api/sessions",
-    validateRequest(createUserSessionSchema),
+    validateResource(createUserSessionSchema),
     createUserSessionHandler
   );
 
@@ -64,7 +82,7 @@ function routes(app: Express) {
     "/api/products",
     [
       requiresRole(permissions.createProduct),
-      validateRequest(createProductSchema),
+      validateResource(createProductSchema),
     ],
     createProductHandler
   );
@@ -73,14 +91,14 @@ function routes(app: Express) {
     "/api/products/:productId",
     [
       requiresRole(permissions.updateProduct),
-      validateRequest(updateProductSchema),
+      validateResource(updateProductSchema),
     ],
     updateProductHandler
   );
 
   app.get(
     "/api/products/:productId",
-    validateRequest(createProductSchema),
+    validateResource(createProductSchema),
     getProductHandler
   );
 
@@ -88,7 +106,7 @@ function routes(app: Express) {
     "/api/products/:productId",
     [
       requiresRole(permissions.deleteProduct),
-      validateRequest(deleteProductSchema),
+      validateResource(deleteProductSchema),
     ],
     deleteProductHandler
   );
@@ -98,7 +116,7 @@ function routes(app: Express) {
     "/api/posts",
     [
       requiresRole(permissions.createProduct),
-      validateRequest(createPostSchema),
+      validateResource(createPostSchema),
     ],
     createPostHandler
   );
@@ -107,21 +125,23 @@ function routes(app: Express) {
     "/api/posts/:postId",
     [
       requiresRole(permissions.updateProduct),
-      validateRequest(updatePostSchema),
+      validateResource(updatePostSchema),
     ],
     updatePostHandler
   );
 
-  app.get("/api/posts/:postId", validateRequest(getPostSchema), getPostHandler);
+  app.get(
+    "/api/posts/:postId",
+    validateResource(getPostSchema),
+    getPostHandler
+  );
 
   app.delete(
     "/api/posts/:postId",
     [
       requiresRole(permissions.deleteProduct),
-      validateRequest(deletePostSchema),
+      validateResource(deletePostSchema),
     ],
     getPostHandler
   );
 }
-
-export default routes;
